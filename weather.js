@@ -45,7 +45,7 @@ let handleWeatherResponse = function(response) {
 
   // **** your code starts here - don't modify anything else. you will be sad.
 
-  // clear loop
+  // clear entry
   $(".forecast").empty();
 
   // current weather
@@ -53,43 +53,45 @@ let handleWeatherResponse = function(response) {
   let currentIcon = icon(icon.current);
   $("#current-conditions-icon").html(currentIcon);
 
-  let currentTemp = Math.round(current.apparentTemperature) + "&#8457";
-  $("#current-temperature").html(currentTemp);
-
   let currentConditions = current.summary;
   $("#current-conditions-text").html(currentConditions);
 
-  // getting forecast & loop
-  var now = new Date();
-  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var day = now.getDay();
+  let currentTemperature = Math.round(current.apparentTemperature) + "&#8457";
+  $("#current-temperature").html(currentTemperature);
 
-  let forecast = response.daily.data;
-    for (let i=0; i<6; i++) {
+  // getting forecast & loop
+  // var now = new Date();
+  // var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  // var day = now.getDay();
+
+  var today = new Date();
+  var day = today.getUTCDay();
+
+    let forecast = response.daily.data;
+      for (let i=0; i<6; i++) {
       let forecastIcon = icon(forecast[i].icon);
-      let forecastLow = Math.round(forecast[i].apparentTemperatureLow) + "&#176";
-      let forecastHigh = Math.round(forecast[i].apparentTemperatureHigh) + "&#176";
+      let forecastHigh = Math.round(forecast[i].apparentTemperatureHigh) + "&#8457";
+      let forecastLow = Math.round(forecast[i].apparentTemperatureLow) + "&#8457";
       let forecastConditions = forecast[i].summary;
 
-      // html strings
-      day = day % 7;
-          let html = '<div class="col">';
-          if (i === 0) {
-            html = html + '<h2>Today</h2>';
-          }
-          else {
-            html = html + '<h2>' + days[day] + '</h2>';
-          }
-          html = html + '<h3>' + forecastIcon + '</h3>';
-          html = html + '<h4>' + forecastHigh + ' | ' + forecastLow + '</h4>';
-          html = html + '<h5>' + forecastConditions + '</h5>';
-          html = html + '</div>'
-          $(".forecast").append(html);
-          day++;
-        }
+  // html strings
+      let html = '<div class="col">';
+      if (i === 0) {
+        html = html + '<h2>Today</h2>';
+      }
+      else {
+        html = html + '<h2>' + day + '</h2>';
+      }
+      html = html + '<h3>' + forecastIcon + '</h3>';
+      html = html + '<h4>' + forecastHigh + ' | ' + forecastLow + '</h4>';
+      html = html + '<h5>' + forecastConditions + '</h5>';
+      html = html + '</div>'
+      $(".forecast").append(html);
+      day++;
+    }
 
-        $(".current").fadeIn(500);
-        $(".forecast").fadeIn(2000);
+    $(".current").fadeIn(500);
+    $(".forecast").fadeIn(10000);
 
   // *** your code ends here -- really.
 };
