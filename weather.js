@@ -59,13 +59,7 @@ let handleWeatherResponse = function(response) {
   let currentTemperature = "Currently, it is " + Math.round(current.apparentTemperature) + "&#8457";
   $("#current-temperature").html(currentTemperature);
 
-  // getting forecast & loop
-  // var now = new Date();
-  // var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  // var day = now.getDay();
-
-  var today = new Date();
-  var day = today.getUTCDay();
+  // getting forecast for all 6 days 
 
     let forecast = response.daily.data;
       for (let i=0; i<6; i++) {
@@ -75,22 +69,23 @@ let handleWeatherResponse = function(response) {
       let forecastConditions = forecast[i].summary;
 
   // html strings
-      let html = '<div class="col">';
-      if (i === 0) {
-        html = html + '<h2>Today</h2>';
-      }
-      else {
-        html = html + '<h2>' + day + '</h2>';
-      }
-      html = html + '<h3>' + forecastIcon + '</h3>';
-      html = html + '<h4>' + forecastHigh + ' | ' + forecastLow + '</h4>';
-      html = html + '<h5>' + forecastConditions + '</h5>';
-      html = html + '</div>'
+        let html = '<div class="col">';
+        if (i === 0) {
+          html = html + '<h2>Today</h2>';
+        }
+        else {
+          html = html + '<h2>' + day + '</h2>';
+        }
+        html = html + '<h3>' + forecastIcon + '</h3>';
+        html = html + '<h4>' + forecastHigh + ' | ' + forecastLow + '</h4>';
+        html = html + '<h5>' + forecastConditions + '</h5>';
+        html = html + '</div>'
 
       $(".forecast").append(html);
       day++;
     }
 
+  // fade in at different times
     $(".current").fadeIn(1000);
     $(".forecast").fadeIn(10000);
 
