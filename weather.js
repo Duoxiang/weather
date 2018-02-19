@@ -45,7 +45,7 @@ let handleWeatherResponse = function(response) {
 
   // **** your code starts here - don't modify anything else. you will be sad.
 
-  // clear entry
+  // clear entry for new search
   $(".forecast").empty();
 
   // current weather
@@ -56,7 +56,7 @@ let handleWeatherResponse = function(response) {
   let currentConditions = current.summary;
   $("#current-conditions-text").html(currentConditions);
 
-  let currentTemperature = Math.round(current.apparentTemperature) + "&#8457";
+  let currentTemperature = "Currently, it is " + Math.round(current.apparentTemperature) + "&#8457";
   $("#current-temperature").html(currentTemperature);
 
   // getting forecast & loop
@@ -86,11 +86,12 @@ let handleWeatherResponse = function(response) {
       html = html + '<h4>' + forecastHigh + ' | ' + forecastLow + '</h4>';
       html = html + '<h5>' + forecastConditions + '</h5>';
       html = html + '</div>'
+
       $(".forecast").append(html);
       day++;
     }
 
-    $(".current").fadeIn(500);
+    $(".current").fadeIn(1000);
     $(".forecast").fadeIn(10000);
 
   // *** your code ends here -- really.
