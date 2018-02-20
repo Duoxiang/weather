@@ -59,8 +59,11 @@ let handleWeatherResponse = function(response) {
   let currentTemperature = "Currently, it is " + Math.round(current.apparentTemperature) + "&#8457";
   $("#current-temperature").html(currentTemperature);
 
-  // getting forecast for all 6 days 
+  // getting forecast for all 6 days
 
+    var today = new Date();
+    var day = today.getUTCDay();
+    
     let forecast = response.daily.data;
       for (let i=0; i<6; i++) {
       let forecastIcon = icon(forecast[i].icon);
